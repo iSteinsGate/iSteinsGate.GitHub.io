@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-![logo](_media/icon.svg)
+![logo](img/one_piece.png)
 
 # docsify <small>3.5</small>
 
@@ -12,3 +12,7 @@
 
 [GitHub](https://github.com/iSteinsGate/iSteinsGate.GitHub.io.git)
 [Get Started](#TSINGHUI)
+
+<!-- 背景图片 -->
+![](img/one_piece_bg.jpeg)
+
