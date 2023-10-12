@@ -22,7 +22,7 @@ function getdir(){
     done
 }
 
-#root_dir=`ls -d 00-Inbox/*/`
+#root_dir=`ls -d Windows/*/`
 #root_dir=`ls -d */ "$1/VulWiki" | sed 's/\///g'`
 #root_dir=`ls -d */ "$1" | sed 's/\///g'`
 root_dir=`ls -d "$1"`

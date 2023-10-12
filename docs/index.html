@@ -7,13 +7,34 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+
 </head>
 <body>
+  <nav>
+    <a href="#/">首页</a>
+    <a href="#/test">二级页</a>
+  </nav>
   <div id="app"></div>
   <script>
     window.$docsify = {
+      name: 'TSINGHUI',
+      repo:"https://github.com/iSteinsGate/iSteinsGate.GitHub.io.git",
+      // 封面
+      coverpage:true,
+      // Sidebar Configuration
+      // auto2top: true,
+      search: {
+        placeholder: 'Type to search',
+        noData: 'No matches found.',
+        // Headline depth, 1 - 6
+        depth: 2,
+      },
+      // 侧边栏
       loadSidebar: true,
-      subMaxLevel:3,
+      // 导航栏
+      loadNavbar:true,
+      subMaxLevel:2,
       // alias: {
       //   '/.*/_sidebar.md': '/_sidebar.md'
       // }
@@ -21,5 +42,7 @@
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 </body>
 </html>
