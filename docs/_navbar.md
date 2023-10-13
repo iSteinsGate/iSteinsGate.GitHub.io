@@ -26,7 +26,7 @@
   * [ 异世界 动漫 ](https://www.lldm.net/)
 
 
-* FQ
+* F Q
   * [okgg](https://okgg.top/)
   * [leensas](https://leensas.us/)
 

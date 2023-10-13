@@ -1,5 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+<body>
+
+<div id="app"></div>
+
+<script>
+  window.$docsify = {
+    name: 'TSINGHUI',
+    repo:"https://github.com/iSteinsGate/iSteinsGate.GitHub.io.git",
+    // 封面
+    coverpage:true,
+    // Sidebar Configuration
+    // auto2top: true,
+    search: {
+      placeholder: 'Type to search',
+      noData: 'No matches found.',
+      // Headline depth, 1 - 6
+      depth: 2,
+    },
+    // 侧边栏
+    loadSidebar: true,
+    // 导航栏
+    loadNavbar:true,
+    subMaxLevel:2,
+
+    // 字数统计
+    // alias: {
+    //   '/.*/_sidebar.md': '/_sidebar.md'
+    // }
+  }
+</script>
+<!-- Docsify v4 -->
+<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+
+<!--github评论-->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: 'dcced6b7ee272b18994d',
+    clientSecret: '14b96f87fb8c2a7217506b4e6711386e7fb5decf',
+    repo: 'iSteinsGate.GitHub.io',
+    owner: 'iSteinsGate',
+    admin: ['iSteinsGate'],
+    // facebook-like distraction free mode
+    distractionFreeMode: false
+  })
+</script>
+<!--统计字数-->
+<script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+
+</body>
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
@@ -9,37 +65,6 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 
 
+
 </head>
-<body>
-
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: 'TSINGHUI',
-      repo:"https://github.com/iSteinsGate/iSteinsGate.GitHub.io.git",
-      // 封面
-      coverpage:true,
-      // Sidebar Configuration
-      // auto2top: true,
-      search: {
-        placeholder: 'Type to search',
-        noData: 'No matches found.',
-        // Headline depth, 1 - 6
-        depth: 2,
-      },
-      // 侧边栏
-      loadSidebar: true,
-      // 导航栏
-      loadNavbar:true,
-      subMaxLevel:2,
-      // alias: {
-      //   '/.*/_sidebar.md': '/_sidebar.md'
-      // }
-    }
-  </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-</body>
 </html>
