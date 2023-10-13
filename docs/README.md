@@ -36,4 +36,10 @@
   - [巧用分类法卡片笔记](Inbox/巧用分类法解决使用卡片笔记时遇到的困境.md)
   - [自动导入标注到 Obsidian](Inbox/自动导入标注到%20Obsidian（不使用同步助手方案）)
 
-
+```mermaid
+flowchart LR
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```

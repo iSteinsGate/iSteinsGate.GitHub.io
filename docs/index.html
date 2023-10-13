@@ -3,8 +3,11 @@
 <body>
 
 <div id="app"></div>
-
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+<script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>
+  var num = 0;
+  mermaid.initialize({ startOnLoad: true });
   window.$docsify = {
     name: 'TSINGHUI',
     repo:"https://github.com/iSteinsGate/iSteinsGate.GitHub.io.git",
@@ -23,7 +26,19 @@
     // 导航栏
     loadNavbar:true,
     subMaxLevel:2,
-
+    // mermaid
+    markdown: {
+      renderer: {
+        code: function(code, lang) {
+          if (lang === "mermaid") {
+            return (
+                    '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+            );
+          }
+          return this.origin.code.apply(this, arguments);
+        }
+      }
+    },
     // 字数统计
     // alias: {
     //   '/.*/_sidebar.md': '/_sidebar.md'
@@ -54,6 +69,9 @@
 </script>
 <!--统计字数-->
 <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+
+
+
 
 </body>
 <head>
