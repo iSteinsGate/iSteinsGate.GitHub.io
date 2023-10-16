@@ -3,12 +3,35 @@
 <body>
 
 <div id="app"></div>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-<script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<link rel="stylesheet" href="//unpkg.com/mermaid/dist/mermaid.min.css" />
+<script type="text/javascript" src="//unpkg.com/mermaid/dist/mermaid.min.js"></script>
+
 <script>
-  var num = 0;
-  mermaid.initialize({ startOnLoad: true });
   window.$docsify = {
+    plugins: [
+      function (hook, vm) {
+        hook.ready(function () {
+          // 类似 jQuery.ready 初始化 mermaid, 禁用自动渲染
+          mermaid.initialize({ startOnLoad: false });
+        });
+        hook.doneEach(function () {
+          // 每个页面渲染完成后手动渲染 mermaid 图表
+          mermaid.init(undefined, '.mermaid');
+        });
+      }
+    ],
+    markdown: {
+      renderer: {
+        code: function (code, lang) {
+          var html = '';
+          if (code.match(/^sequenceDiagram/) || code.match(/^graph/) || code.match(/^gantt/)) {
+            html = '<div class="mermaid">' + code + '</div>';
+          }
+          var hl = Prism.highlight(code, Prism.languages[lang] || Prism.languages.markup);
+          return html + '<pre v-pre data-lang="' + lang + '"><code class="lang-' + lang + '">' + hl + '</code></pre>';
+        }
+      }
+    },
     name: 'TSINGHUI',
     repo:"https://github.com/iSteinsGate/iSteinsGate.GitHub.io.git",
     // 封面
@@ -27,22 +50,9 @@
     loadNavbar:true,
     subMaxLevel:2,
     // mermaid
-    markdown: {
-      renderer: {
-        code: function(code, lang) {
-          if (lang === "mermaid") {
-            return (
-                    '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
-            );
-          }
-          return this.origin.code.apply(this, arguments);
-        }
-      }
-    },
-    // 字数统计
-    // alias: {
-    //   '/.*/_sidebar.md': '/_sidebar.md'
-    // }
+    mermaidConfig: {
+      querySelector: ".mermaid"
+    }
   }
 </script>
 <!-- Docsify v4 -->
