@@ -10,6 +10,7 @@
     - [美团：SQL加锁](Inbox/美团：这个%20SQL%20语句加了哪些锁.md)
     - [美团:Java魔法类：Unsafe应用解析](https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html)
     - [美团:聊聊Java应用的GC优化](https://tech.meituan.com/2017/12/29/jvm-optimize.html)
+  - [Javaᶜⁿ 面试突击](https://www.javacn.site/interview/basic/)
 - 数据库
   - Mysql
   - PostgreSql
