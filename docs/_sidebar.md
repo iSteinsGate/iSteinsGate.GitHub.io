@@ -27,6 +27,7 @@
   - Docker
 - Linux
   - [Manjaro](Linux/Manjaro教程.md)
+  - [Manjaro常用问题](Linux/Manjaro常用问题.md)
 
 - Windows
   - [Powershell  oh my posh](Windows/Powershell%20%20oh%20my%20posh.md)

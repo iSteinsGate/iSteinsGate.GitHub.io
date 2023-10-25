@@ -1,0 +1,33 @@
+
+console
+pid
+start.sh
+stop.sh
+
+# maven #
+target
+
+logs
+
+# windows #
+Thumbs.db
+
+# Mac #
+.DS_Store
+
+# eclipse #
+.settings
+.project
+.classpath
+.log
+*.class
+
+# idea #
+.idea
+*.iml
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*/**/target
