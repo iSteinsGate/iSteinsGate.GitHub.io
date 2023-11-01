@@ -11,6 +11,7 @@
     - [美团:Java魔法类：Unsafe应用解析](https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html)
     - [美团:聊聊Java应用的GC优化](https://tech.meituan.com/2017/12/29/jvm-optimize.html)
   - [Javaᶜⁿ 面试突击](https://www.javacn.site/interview/basic/)
+  - [工具类汇总](Java/工具类汇总.md)
 - 数据库
   - Mysql
   - PostgreSql
@@ -27,7 +28,7 @@
   - Docker
 - Linux
   - [Manjaro](Linux/Manjaro教程.md)
-
+  - [Linux查询日志](Linux/Linux查询日志.md)
 - Windows
   - [Powershell  oh my posh](Windows/Powershell%20%20oh%20my%20posh.md)
   - [windows激活](Windows/windows激活.md)
