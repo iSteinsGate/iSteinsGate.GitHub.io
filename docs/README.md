@@ -1,6 +1,6 @@
 # TSINGHUI
 
-> An awesome project.
+> Talk is cheap , show me your code !
 
 - Java
   - Java 基础
@@ -8,15 +8,21 @@
   - Java 多线程与并发
   - Java IO/NIO/AIO
   - JVM
+    - [github:Java 虚拟机底层原理](https://github.com/doocs/jvm)
   - [Arthas](Java/Arthas使用文档.md)
-  - 收藏文章
+  - :heart:  收藏文章
     - [美团：SQL加锁](Inbox/美团：这个%20SQL%20语句加了哪些锁.md)
+    - [美团:Java魔法类：Unsafe应用解析](https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html)
+    - [美团:聊聊Java应用的GC优化](https://tech.meituan.com/2017/12/29/jvm-optimize.html)
+  - [Javaᶜⁿ 面试突击](https://www.javacn.site/interview/basic/)
+  - [工具类汇总](Java/工具类汇总.md)
 - 数据库
   - Mysql
   - PostgreSql
 - Redis
 - MongoDB
 - Nginx
+  - [github:nginx教程](https://github.com/dunwu/nginx-tutorial)
 - 算法与数据结构
 - 开发工具
   - Maven
@@ -26,7 +32,8 @@
   - Docker
 - Linux
   - [Manjaro](Linux/Manjaro教程.md)
-
+  - [Manjaro常用问题](Linux/Manjaro常用问题.md)
+  - [Linux查询日志](Linux/Linux查询日志.md)
 - Windows
   - [Powershell  oh my posh](Windows/Powershell%20%20oh%20my%20posh.md)
   - [windows激活](Windows/windows激活.md)
@@ -35,3 +42,5 @@
 - 其他
   - [巧用分类法卡片笔记](Inbox/巧用分类法解决使用卡片笔记时遇到的困境.md)
   - [自动导入标注到 Obsidian](Inbox/自动导入标注到%20Obsidian（不使用同步助手方案）)
+  - [emoji大全](https://gist.github.com/rxaviers/7360908)
+  - [mermaid](Inbox/mermaid.md)
