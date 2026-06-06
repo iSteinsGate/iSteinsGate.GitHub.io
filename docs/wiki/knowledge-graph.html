@@ -2288,7 +2288,7 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
       app.style.setProperty('--sidebar-width', newWidth + 'px');
       localStorage.setItem('sidebar-width', newWidth);
     } else {
-      newWidth = Math.max(300, Math.min(800, startWidth - diff));
+      newWidth = Math.max(300, Math.min(1200, startWidth - diff));
       app.style.setProperty('--drawer-width', newWidth + 'px');
       localStorage.setItem('drawer-width', newWidth);
     }
