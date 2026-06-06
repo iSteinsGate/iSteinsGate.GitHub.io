@@ -1,0 +1,858 @@
+{
+  "meta": {
+    "build_date": "2026-05-21T14:11:03Z",
+    "wiki_title": "研究目的与方向",
+    "total_nodes": 20,
+    "total_edges": 35,
+    "initial_view": [
+      "DevOps与运维",
+      "Java后端技术栈",
+      "LLM-Wiki实现方案",
+      "Steph-Ango",
+      "wyndo-llm-wiki-obsidian",
+      "数据库技术",
+      "知识管理方法论",
+      "Andrej-Karpathy",
+      "Arthas",
+      "Git",
+      "Netty",
+      "Nginx",
+      "SkyWalking",
+      "Cursor",
+      "PostgreSQL",
+      "AI与编程工具",
+      "医疗信息化项目",
+      "算法与数据结构",
+      "Wyndo",
+      "karpathy-llm-wiki-tweet"
+    ],
+    "degraded": false,
+    "insights_degraded": false
+  },
+  "nodes": [
+    {
+      "id": "Andrej-Karpathy",
+      "label": "Andrej Karpathy",
+      "type": "entity",
+      "community": "LLM-Wiki实现方案",
+      "content": "# Andrej Karpathy\n\n## 概述\nAndrej Karpathy 是世界上最受尊敬的 AI 研究者之一。前 Tesla AI 总监，OpenAI 联合创始人之一。\n\n## 核心贡献\n- 提出 **LLM Wiki** 概念：用 LLM 构建和维护个人知识库\n- 推文获得 19.6M 浏览、55.4K 点赞、6.58K 转发（2026年4月）\n- 名言：\"Obsidian 是 IDE，LLM 是程序员，wiki 是代码库\"\n\n## LLM Wiki 理念\nKarpathy 发现一个非常有用的模式：用 LLM 为各种研究兴趣主题构建个人知识库。他的 token 消耗从操作代码转向了操作知识。\n\n## 关键观点\n1. **范式转变**：不是人维护知识库问AI问题，而是AI构建和维护整个知识库\n2. **复利效应**：每篇新资料让整个wiki更智能\n3. **自动交叉引用**：一篇文章可能涉及10-15个wiki页面\n\n## 相关页面\n- [[LLM-Wiki]]\n- [[AI驱动的第二大脑]]\n- [[Obsidian]]\n- [[Claude-Code]]\n\n## 参考资料\n- [原始推文](https://x.com/karpathy/status/2039805659525644595)\n- [翻译文章](../raw/articles/karpathy-llm-wiki-obsidian-中文翻译.md)"
+    },
+    {
+      "id": "Arthas",
+      "label": "Arthas",
+      "type": "entity",
+      "community": "Java后端技术栈",
+      "content": "# Arthas\n\n## 概述\nArthas 是阿里巴巴开源的 Java 诊断工具，可以在不修改代码的情况下诊断生产环境问题。\n## 核心功能\n- **dashboard**: 实时面板，查看线程、内存、GC\n- **watch**: 观察方法执行数据\n- **trace**: 方法内部调用路径，找出耗时操作\n- **jad**: 反编译类\n- **mc/redefine**: 热更新代码\n\n## 使用方式\n```bash\n# 独立使用\ncurl -O https://arthas.aliyun.com/arthas-boot.jar\njava -jar arthas-boot.jar\n\n# 指定端口\njava -jar arthas-boot.jar --telnet-port 9999 --http-port 8563\n```\n\n## 源码路径\n`02-Areas/Arthas/`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "Cursor",
+      "label": "Cursor",
+      "type": "entity",
+      "community": "数据库技术",
+      "content": "# Cursor\n\n## 概述\nCursor 是一个 AI 驱动的代码编辑器，基于 VS Code 构建，集成了 AI 编程助手。\n## 笔记内容（8篇）\n- **AI SQL生成工作流程指南** — 基于表结构自动生成SQL\n- **cursor使用指南** — Rules、MCP、复杂任务分步确认\n- **cursor配置** — VSCode配置优化\n- **git.mdc** — Git提交规则模板\n- **基于表结构Sql生成** — PostgreSQL视图SQL生成\n- **提示词46C6** — 为什么90%的提示词失败\n- **数据库注释规范** — 表/字段注释标准\n- **流程** — 数据库Schema全局摘要\n\n## 关键实践\n1. 借助MCP让AI直接读取需求文档\n2. 复杂任务不要直接让AI动手，先确认理解\n3. 完成修改后提炼cursor rules\n\n## 源码路径\n`02-Areas/Cursor/`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "Git",
+      "label": "Git",
+      "type": "entity",
+      "community": "DevOps与运维",
+      "content": "# Git\n\n## 概述\nGit 分布式版本控制系统。\n## 笔记内容（3篇）\n- **Git stash 命名** — stash 管理技巧\n- **Git merge --no-ff** — 合并策略详解\n- **Git 常用命令** — 查看commit所属分支、移除版本关联\n\n## 关键命令\n```bash\n# 查看commit属于哪个分支\ngit branch -r --contains COMMIT_ID\n\n# stash管理\ngit stash save \"message\"\ngit stash list\ngit stash pop\n\n# 合并策略\ngit merge --no-ff feature  # 保留分支历史\n```\n\n## 源码路径\n`02-Areas/Git/`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "Netty",
+      "label": "Netty",
+      "type": "entity",
+      "community": "Java后端技术栈",
+      "content": "# Netty\n\n## 概述\nNetty 是一个异步事件驱动的网络应用框架，用于快速开发可维护的高性能协议服务器和客户端。\n## 核心概念\n- **NIO 基础**: Channel & Buffer、Selector 三大组件\n- **EventLoop**: 事件循环模型，Boss + Worker 线程组\n- **ByteBuf**: Netty 的字节缓冲区，比 NIO ByteBuffer 更灵活\n- **ChannelHandler**: 处理入站和出站数据的处理器链\n\n## 知识体系（4篇笔记）\n1. `Netty01-nio` — NIO 基础：Channel、Buffer、Selector\n2. `Netty02-入门` — Netty 概述、第一个项目、组件详解\n3. `Netty03-进阶` — 粘包半包、协议设计与编码解码\n4. `Netty04-优化与源码` — 序列化优化、参数调优、源码分析\n\n## 关键特性\n- 异步非阻塞 I/O\n- 高性能、低延迟\n- 丰富的协议支持（HTTP、WebSocket、自定义协议）\n- 内存池化、零拷贝\n\n## 源码路径\n`02-Areas/Netty/`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "Nginx",
+      "label": "Nginx",
+      "type": "entity",
+      "community": "DevOps与运维",
+      "content": "# Nginx\n\n## 概述\nNginx 是高性能的 HTTP 和反向代理服务器。\n## 核心配置\n- 配置文件: `conf/nginx.conf`\n- 核心模块: events、http、server、location\n\n## 常用功能\n1. **反向代理** — proxy_pass\n2. **负载均衡** — upstream + weight/ip_hash/least_conn\n3. **静态文件** — root / alias\n4. **HTTPS** — ssl_certificate\n5. **限流** — limit_req / limit_conn\n\n## 微信小程序相关\n- 订阅消息接口配置\n\n## 源码路径\n`02-Areas/Nginx/`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "PostgreSQL",
+      "label": "PostgreSQL",
+      "type": "entity",
+      "community": "数据库技术",
+      "content": "# PostgreSQL\n\n## 概述\nPostgreSQL 是一个功能强大的开源关系型数据库。\n## 笔记内容\n- **PostgreSql json提取** — JSON字段查询和提取\n- **Postgresql表字段变更语句** — DDL变更安全写法\n- **Sql Server迁移PostgreSql** — 迁移差异对比\n\n## 关键语法\n```sql\n-- JSON提取\n(data->'Document'->>'CreateTime')::timestamp\n\n-- 安全添加字段\nDO $$ BEGIN\n  IF NOT EXISTS (SELECT 1 FROM pg_attribute\n    WHERE attrelid='表名'::regclass AND attname='字段名') THEN\n    ALTER TABLE 表名 ADD COLUMN 字段名 类型;\n  END IF;\nEND $$;\n```\n\n## SQL Server → PostgreSQL 差异\n| SQL Server | PostgreSQL |\n|---|---|\n| `TOP N` | `LIMIT N` |\n| `ISNULL()` | `COALESCE()` |\n| `GETDATE()` | `CURRENT_DATE` |\n| `IIF()` | `CASE WHEN` |\n| `STUFF/STRING_AGG` | `STRING_AGG` |\n\n## 源码路径\n`02-Areas/PostgreSql/`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "SkyWalking",
+      "label": "SkyWalking",
+      "type": "entity",
+      "community": "DevOps与运维",
+      "content": "# SkyWalking\n\n## 概述\nApache SkyWalking 是分布式系统的应用性能监控（APM）工具。\n## 核心功能\n- 分布式链路追踪\n- 服务拓扑图\n- 性能指标监控\n- 告警\n\n## 搭建步骤\n1. 搭建 SkyWalking OAP Server\n2. 搭建 SkyWalking UI\n3. Java Agent 接入\n4. 配置采样率和上报地址\n\n## 源码路径\n`00-Inbox/SkyWalking 极简入门.md`\n\n## 相关页面\n- [[Java后端技术栈]]\n- [[数据库技术]]"
+    },
+    {
+      "id": "Steph-Ango",
+      "label": "Steph Ango",
+      "type": "entity",
+      "community": null,
+      "content": "# Steph Ango\n\n## 概述\nSteph Ango 是 Obsidian 的 CEO。发布了 Obsidian Skills，教 Claude 如何用 Obsidian 的原生语言写作。\n\n## 核心贡献\n- 创建了 Obsidian Skills 工具集\n- 教会 LLM 使用 Obsidian 原生功能：Wikilinks、Callouts、Canvas、CLI\n- 将 Obsidian 从\"markdown文件夹\"升级为LLM可原生操作的知识管理平台\n\n## Obsidian Skills 功能\n1. **Wikilinks** — 双向链接语法\n2. **Callouts** — 引用框和提示框\n3. **Frontmatter** — YAML 元数据头部\n4. **Obsidian CLI** — 命令行操作\n5. **Bases** — 数据库视图\n6. **Canvas** — 可视化画布\n\n## 相关页面\n- [[Obsidian]]\n- [[Obsidian-Skills]]\n- [[LLM-Wiki]]"
+    },
+    {
+      "id": "Wyndo",
+      "label": "Wyndo",
+      "type": "entity",
+      "community": "wyndo-llm-wiki-obsidian",
+      "content": "# Wyndo\n\n## 概述\nWyndo 是 The AI Maker 的创始人，AI Operator & Maker。专注于将复杂AI工具转化为简单可构建的系统。\n\n## 核心贡献\n- 将 Karpathy 的 LLM Wiki 概念落地为完整实现方案\n- 发布了完整的蓝图：文件夹结构、命令、schema、入门套件\n- 创建了基于 Obsidian + Claude Code 的 AI 第二大脑系统\n\n## 关键文章\n- [How I Took Karpathy's LLM Wiki and Built an AI-Powered Second Brain in Obsidian](https://aimaker.substack.com/p/llm-wiki-obsidian-knowledge-base-andrej-karphaty)\n\n## 技术栈\n- Obsidian 作为界面\n- Claude Code 作为代理\n- Obsidian Skills（由 Steph Ango 发布）\n- CLI 从终端运行\n\n## 相关页面\n- [[LLM-Wiki]]\n- [[Claude-Code]]\n- [[Obsidian-Skills]]\n\n## 参考资料\n- [The AI Maker](https://aimaker.substack.com)"
+    },
+    {
+      "id": "AI与编程工具",
+      "label": "AI与编程工具",
+      "type": "topic",
+      "community": "LLM-Wiki实现方案",
+      "content": "# AI与编程工具\n\n## 概述\nAI辅助编程工具和工作流。\n## 工具\n\n### Cursor\n- AI SQL生成工作流\n- 使用指南和配置\n- 提示词工程（46C6框架）\n- 数据库注释规范\n\n### Claude Code\n- [[Claude-Code框架对比]] — Superpowers/GSD/gstack\n\n### Obsidian\n- AnyBlock插件\n- Callout语法\n- 自动导入标注\n\n## 关键实践\n1. 借助MCP让AI读取需求文档\n2. 复杂任务分步确认\n3. 完成后提炼rules\n\n## 笔记分布\n- `02-Areas/Cursor/` — 8篇\n- `00-Inbox/` — 3篇\n\n## 相关页面\n- [[LLM-Wiki实现方案]]\n- [[知识管理方法论]]"
+    },
+    {
+      "id": "DevOps与运维",
+      "label": "DevOps与运维",
+      "type": "topic",
+      "community": "DevOps与运维",
+      "content": "# DevOps与运维\n\n## 概述\n开发运维相关工具和配置。\n## 工具链\n\n### Linux\n- FZF — 模糊搜索\n- Vim — 编辑器配置\n- SCP — 远程文件传输\n- nohup — 后台进程管理\n\n### Web服务器\n- [[Nginx]] — 反向代理、负载均衡、HTTPS\n\n### 版本控制\n- [[Git]] — stash、merge策略、常用命令\n\n### 终端美化\n- Windows Terminal + oh-my-posh\n- PowerShell 配置\n\n### 监控\n- [[SkyWalking]] — 分布式链路追踪\n\n## 笔记分布\n- `02-Areas/Linux/` — 4篇\n- `02-Areas/Nginx/` — 2篇\n- `02-Areas/Git/` — 3篇\n- `02-Areas/Windows/` — 2篇\n\n## 相关页面\n- [[LLM-Wiki实现方案]]\n- [[知识管理方法论]]"
+    },
+    {
+      "id": "Java后端技术栈",
+      "label": "Java后端技术栈",
+      "type": "topic",
+      "community": "Java后端技术栈",
+      "content": "# Java后端技术栈\n\n## 概述\nJava 后端开发的完整技术栈，涵盖并发、框架、架构、调试。\n## 技术栈全景\n\n### 并发编程\n- [[Java并发编程JUC]] — synchronized、ReentrantLock、Unsafe\n- 线程池、CompletableFuture、volatile\n\n### 框架\n- [[Spring事务]] — 事务传播机制\n- [[Netty]] — 网络编程框架（4篇完整笔记）\n\n### 架构\n- [[DDD领域驱动设计]] — 阿里DDD系列\n\n### 调试工具\n- [[Arthas]] — Java诊断工具\n\n### 构建工具\n- [[Maven]] — 依赖管理、多模块构建\n\n## 笔记分布\n- `02-Areas/Java/` — 13篇\n- `02-Areas/Netty/` — 6篇\n- `02-Areas/Arthas/` — 2篇\n\n## 相关页面\n- [[LLM-Wiki实现方案]]\n- [[知识管理方法论]]"
+    },
+    {
+      "id": "LLM-Wiki实现方案",
+      "label": "LLM Wiki 实现方案",
+      "type": "topic",
+      "community": "LLM-Wiki实现方案",
+      "content": "# LLM Wiki 实现方案\n\n## 概述\n基于 [[Andrej-Karpathy]] 的 [[LLM-Wiki]] 概念，社区已经产生了多种实现方案。\n\n## 主要实现方案\n\n### 1. Wyndo 方案（推荐）\n- **工具**: [[Obsidian]] + [[Claude-Code]] + [[Obsidian-Skills]]\n- **特点**: 最原生、功能完整、有入门套件\n- **适合**: 想要完整系统的用户\n\n### 2. claude-obsidian（最热门）\n- **GitHub**: AgriciDaniel/claude-obsidian ⭐5301\n- **特点**: 知识引擎、Hot Cache、多Agent并行\n- **适合**: 深度Claude Code用户\n\n### 3. llm-wiki-skill（中文友好）\n- **GitHub**: sdyckjq-lab/llm-wiki-skill ⭐1591\n- **特点**: 中文优先、多平台、离线图谱\n- **适合**: 中文用户、Hermes Agent用户\n\n### 4. llm-wiki-compiler（工程质量最高）\n- **GitHub**: atomicstrata/llm-wiki-compiler ⭐1250\n- **特点**: 独立CLI、审批流程、声明溯源\n- **适合**: 开发者、需要质量管控\n\n## 方案对比\n\n| 维度 | Wyndo | claude-obsidian | llm-wiki-skill | llm-wiki-compiler |\n|------|:-----:|:---------------:|:--------------:|:-----------------:|\n| 中文支持 | ❌ | ❌ | ✅✅✅ | `--lang` |\n| 多平台 | Claude | Claude | 4+ | MCP |\n| 可视化 | ❌ | ❌ | ✅✅✅ | ❌ |\n| 审批流程 | ❌ | ❌ | ❌ | ✅✅✅ |\n| 安装难度 | 中 | 中 | 低 | 低 |\n\n## 选择建议\n- **中文用户**: llm-wiki-skill\n- **Claude Code深度用户**: claude-obsidian\n- **开发者**: llm-wiki-compiler\n- **入门体验**: Wyndo 方案\n\n## 相关页面\n- [[LLM-Wiki]] — 核心概念\n- [[Obsidian]] — 界面工具\n- [[Claude-Code]] — AI代理\n- [[知识复利]] — 核心效应"
+    },
+    {
+      "id": "医疗信息化项目",
+      "label": "医疗信息化项目",
+      "type": "topic",
+      "community": "LLM-Wiki实现方案",
+      "content": "# 医疗信息化项目\n\n## 概述\n医疗信息系统项目，包括传染病监测和医护对讲白板。\n## 项目一：传染病监测系统\n- **国家传染病监测实施** — 环境准备、部署流程\n- **八一三医院** — 数据问题处理\n- **眉县** — 上报问题处理\n- **长生医院** — 实施记录\n- **传染病要求** — 业务规则（诊断不能删除、实时触发等）\n\n## 项目二：红原医护对讲白板\n- **视图文档** — 8个版本迭代（V1.0→V1.7）\n- **数据库视图设计** — v_yhdj_visit、v_yhdj_ward\n- **业务需求** — 儿科/妇产科白板展示\n\n## 项目三：其他\n- **剩余量** — 药品剩余量计算逻辑\n- **XXLJob清日志** — 定时任务日志清理\n\n## 笔记分布\n- `01-Projects/` — 21篇\n\n## 相关页面\n- [[LLM-Wiki实现方案]]\n- [[知识管理方法论]]"
+    },
+    {
+      "id": "数据库技术",
+      "label": "数据库技术",
+      "type": "topic",
+      "community": "数据库技术",
+      "content": "# 数据库技术\n\n## 概述\n数据库相关技术，包括 MySQL、PostgreSQL、SQL Server。\n## 数据库类型\n\n### MySQL\n- [[InnoDB行锁]] — 行锁机制、加锁规则\n\n### PostgreSQL\n- JSON字段提取\n- 表字段安全变更\n- 从SQL Server迁移\n\n### SQL Server\n- 表字段变更语法\n- 迁移到PostgreSQL差异\n\n## 笔记分布\n- `02-Areas/MySql/` — 1篇\n- `02-Areas/PostgreSql/` — 2篇\n- `02-Areas/` — 2篇（SQL Server相关）\n\n## 相关页面\n- [[LLM-Wiki实现方案]]\n- [[知识管理方法论]]"
+    },
+    {
+      "id": "知识管理方法论",
+      "label": "知识管理方法论",
+      "type": "topic",
+      "community": "LLM-Wiki实现方案",
+      "content": "# 知识管理方法论\n\n## 概述\n知识管理是关于如何收集、组织、存储和检索知识的系统方法。AI 的出现正在改变这个领域。\n\n## 传统方法\n\n### Zettelkasten（卡片盒笔记法）\n- **核心**: 原子化笔记 + 双向链接\n- **优点**: 理论完美，促进深度思考\n- **缺点**: 维护成本太高，大多数人坚持不下来\n\n### PARA 方法\n- **核心**: Projects / Areas / Resources / Archives\n- **优点**: 结构清晰，适合项目管理\n- **缺点**: 静态分类，缺乏动态连接\n\n### 第二大脑（Second Brain）\n- **核心**: 将所有知识外化存储\n- **优点**: 减轻记忆负担\n- **缺点**: 工具碎片化，知识孤立\n\n## AI 驱动的方法\n\n### [[LLM-Wiki]]\n- **核心**: AI构建和维护知识库\n- **优点**: 自动化、复利效应、跨领域连接\n- **实现**: [[Obsidian]] + [[Claude-Code]] + [[Obsidian-Skills]]\n\n### 关键转变\n1. **从人维护到AI维护**\n2. **从手动链接到自动交叉引用**\n3. **从线性增长到指数复利**\n4. **从单一领域到跨领域连接**\n\n## 方法论对比\n\n| 维度 | Zettelkasten | PARA | LLM Wiki |\n|------|:----------:|:----:|:--------:|\n| 维护成本 | 高 | 中 | 低（AI自动） |\n| 连接方式 | 手动 | 手动 | 自动 |\n| 知识增长 | 线性 | 线性 | 指数（复利） |\n| 跨领域 | 难 | 难 | 自动 |\n| 学习曲线 | 高 | 中 | 低 |\n\n## 相关页面\n- [[LLM-Wiki]] — AI驱动方法\n- [[AI驱动的第二大脑]] — 应用场景\n- [[知识复利]] — 核心效应\n- [[Zettelkasten]] — 传统方法"
+    },
+    {
+      "id": "算法与数据结构",
+      "label": "算法与数据结构",
+      "type": "topic",
+      "community": "LLM-Wiki实现方案",
+      "content": "# 算法与数据结构\n\n## 概述\n算法学习笔记，主要是 LeetCode 题解。\n## 题目分类\n\n### 二叉树\n- 104. 二叉树的最大深度\n- 543. 二叉树的直径\n\n### 回溯算法\n- 46. 全排列\n- 51. N皇后\n- 52. N皇后Ⅱ\n\n## 学习资源\n- labuladong 算法笔记\n- LeetCode 中文站\n\n## 笔记分布\n- `05-算法与数据结构/` — 3篇\n- `04-GTD/Day Planners/` — 8篇\n\n## 相关页面\n- [[LLM-Wiki实现方案]]\n- [[知识管理方法论]]"
+    },
+    {
+      "id": "karpathy-llm-wiki-tweet",
+      "label": "Karpathy LLM Wiki 推文",
+      "type": "source",
+      "community": "LLM-Wiki实现方案",
+      "content": "# Karpathy LLM Wiki 推文\n\n## 基本信息\n- **作者**: [[Andrej-Karpathy]]\n- **日期**: 2026年4月2日\n- **平台**: X/Twitter\n- **影响力**: 19.6M 浏览 | 55.4K 点赞 | 6.58K 转发\n\n## 核心内容\n\n### 原文\n> \"Something I'm finding very useful recently: using LLMs to build personal knowledge bases for various topics of research interest. In this way, a large fraction of my recent token throughput is going less into manipulating code, and more into manipulating [knowledge].\"\n\n### 中文翻译\n> \"最近我发现一个非常有用的模式：用 LLM 为各种研究兴趣主题构建个人知识库。这样一来，我大部分 token 消耗不再用于操作代码，而是更多地用于操作知识。\"\n\n## 提出的概念\n- [[LLM-Wiki]] — 用LLM构建和维护个人知识库\n\n## 关键洞察\n1. **范式转变**：从代码操作到知识操作\n2. **LLM的角色**：不是回答问题，而是构建知识库\n3. **复利效应**：知识越用越强\n\n## 影响\n- 引发了大量社区讨论和实现\n- 催生了多个开源项目（claude-obsidian, llm-wiki-skill等）\n- 改变了人们对AI辅助学习的认知\n\n## 相关页面\n- [[LLM-Wiki]] — 提出的概念\n- [[Andrej-Karpathy]] — 作者\n- [[AI驱动的第二大脑]] — 应用场景"
+    },
+    {
+      "id": "wyndo-llm-wiki-obsidian",
+      "label": "Wyndo: 用 Karpathy 的 LLM Wiki 构建 AI 第二大脑",
+      "type": "source",
+      "community": "wyndo-llm-wiki-obsidian",
+      "content": "# Wyndo: 用 Karpathy 的 LLM Wiki 构建 AI 第二大脑\n\n## 基本信息\n- **作者**: [[Wyndo]]\n- **日期**: 2026年4月16日\n- **来源**: The AI Maker (Substack)\n- **类型**: 付费文章（部分免费）\n- **字数**: 6802词\n\n## 文章定位\n这是将 [[Andrej-Karpathy]] 的 [[LLM-Wiki]] 概念落地为完整实现方案的蓝图文章。\n\n## 核心内容\n\n### 三层架构\n```\nsources/   → 第1层：输入（不可变原始材料）\nwiki/      → 第2层：LLM生成的知识页面\nCLAUDE.md  → 第3层：管控wiki运作的schema\n```\n\n### 三大核心操作\n1. `/ingest-url` — 输入URL，Claude提取文章并编译进wiki\n2. `/process-inbox` — 自动分类快速笔记和想法\n3. `/lint-wiki` — 健康检查：断链、孤立页、矛盾内容\n\n### 技术栈\n- [[Obsidian]] — 界面\n- [[Claude-Code]] — 代理\n- [[Obsidian-Skills]] — LLM操作技能\n- CLI — 终端运行\n\n### 关键设计决策\n1. `raw/` 文件夹**不可变** — AI不修改源文件\n2. Wiki 合并同主题文章；新概念创建新页面\n3. 通过 \"See Also\" 部分交叉引用\n4. 事实冲突标注来源归属\n5. `index.md` 和 `log.md` 是必须维护的文件\n\n## 文章结构\n1. **背景** — 笔记系统的痛点\n2. **灵感** — Karpathy 的 LLM Wiki\n3. **技术栈** — Obsidian + Claude Code + Skills\n4. **三层架构详解** — sources / wiki / schema\n5. **三大操作详解** — ingest / process-inbox / lint\n6. **实际示例** — Paul Graham 文章处理\n7. **入门套件** — 可下载的完整系统\n\n## 关键洞察\n1. 笔记系统的致命弱点是**维护成本**\n2. LLM Wiki 翻转了范式：AI维护知识库\n3. 知识具有**复利效应**\n4. Obsidian Skills 是关键：教LLM用原生语言操作\n5. 三个命令就能运行\n\n## 相关页面\n- [[LLM-Wiki]] — 核心框架\n- [[AI驱动的第二大脑]] — 应用场景\n- [[Wyndo]] — 作者\n- [[Obsidian]] — 推荐界面\n- [[Claude-Code]] — 推荐代理\n\n## 参考资料\n- [原文](https://aimaker.substack.com/p/llm-wiki-obsidian-knowledge-base-andrej-karphaty)\n- [中文翻译](../raw/articles/karpathy-llm-wiki-obsidian-中文翻译.md)"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "from": "Arthas",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e2",
+      "from": "Arthas",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e3",
+      "from": "Cursor",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e4",
+      "from": "Cursor",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e5",
+      "from": "Git",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e6",
+      "from": "Git",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e7",
+      "from": "Netty",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e8",
+      "from": "Netty",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e9",
+      "from": "Nginx",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e10",
+      "from": "Nginx",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e11",
+      "from": "PostgreSQL",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e12",
+      "from": "PostgreSQL",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e13",
+      "from": "SkyWalking",
+      "to": "Java后端技术栈",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e14",
+      "from": "SkyWalking",
+      "to": "数据库技术",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e15",
+      "from": "AI与编程工具",
+      "to": "LLM-Wiki实现方案",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e16",
+      "from": "AI与编程工具",
+      "to": "知识管理方法论",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e17",
+      "from": "DevOps与运维",
+      "to": "Nginx",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e18",
+      "from": "DevOps与运维",
+      "to": "Git",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e19",
+      "from": "DevOps与运维",
+      "to": "SkyWalking",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e20",
+      "from": "DevOps与运维",
+      "to": "LLM-Wiki实现方案",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e21",
+      "from": "DevOps与运维",
+      "to": "知识管理方法论",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e22",
+      "from": "Java后端技术栈",
+      "to": "Netty",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e23",
+      "from": "Java后端技术栈",
+      "to": "Arthas",
+      "type": "EXTRACTED",
+      "weight": 0.5,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e24",
+      "from": "Java后端技术栈",
+      "to": "LLM-Wiki实现方案",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e25",
+      "from": "Java后端技术栈",
+      "to": "知识管理方法论",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e26",
+      "from": "LLM-Wiki实现方案",
+      "to": "Andrej-Karpathy",
+      "type": "EXTRACTED",
+      "weight": 0.667,
+      "source_signal_available": true,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": 1,
+        "type_affinity": 1
+      }
+    },
+    {
+      "id": "e27",
+      "from": "医疗信息化项目",
+      "to": "LLM-Wiki实现方案",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e28",
+      "from": "医疗信息化项目",
+      "to": "知识管理方法论",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e29",
+      "from": "数据库技术",
+      "to": "LLM-Wiki实现方案",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e30",
+      "from": "数据库技术",
+      "to": "知识管理方法论",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e31",
+      "from": "算法与数据结构",
+      "to": "LLM-Wiki实现方案",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e32",
+      "from": "算法与数据结构",
+      "to": "知识管理方法论",
+      "type": "EXTRACTED",
+      "weight": 0.4,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.8
+      }
+    },
+    {
+      "id": "e33",
+      "from": "karpathy-llm-wiki-tweet",
+      "to": "Andrej-Karpathy",
+      "type": "EXTRACTED",
+      "weight": 0.3,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.6
+      }
+    },
+    {
+      "id": "e34",
+      "from": "wyndo-llm-wiki-obsidian",
+      "to": "Wyndo",
+      "type": "EXTRACTED",
+      "weight": 0.3,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.6
+      }
+    },
+    {
+      "id": "e35",
+      "from": "wyndo-llm-wiki-obsidian",
+      "to": "Andrej-Karpathy",
+      "type": "EXTRACTED",
+      "weight": 0.3,
+      "source_signal_available": false,
+      "signals": {
+        "co_citation": 0,
+        "source_overlap": null,
+        "type_affinity": 0.6
+      }
+    }
+  ],
+  "insights": {
+    "surprising_connections": [],
+    "isolated_nodes": [
+      {
+        "id": "karpathy-llm-wiki-tweet",
+        "label": "Karpathy LLM Wiki 推文",
+        "degree": 1,
+        "community": "LLM-Wiki实现方案"
+      },
+      {
+        "id": "Steph-Ango",
+        "label": "Steph Ango",
+        "degree": 0,
+        "community": null
+      },
+      {
+        "id": "Wyndo",
+        "label": "Wyndo",
+        "degree": 1,
+        "community": "wyndo-llm-wiki-obsidian"
+      }
+    ],
+    "bridge_nodes": [
+      {
+        "id": "Git",
+        "label": "Git",
+        "community": "DevOps与运维",
+        "connected_communities": [
+          "Java后端技术栈",
+          "数据库技术"
+        ],
+        "community_count": 2
+      },
+      {
+        "id": "Java后端技术栈",
+        "label": "Java后端技术栈",
+        "community": "Java后端技术栈",
+        "connected_communities": [
+          "DevOps与运维",
+          "LLM-Wiki实现方案",
+          "数据库技术"
+        ],
+        "community_count": 3
+      },
+      {
+        "id": "LLM-Wiki实现方案",
+        "label": "LLM Wiki 实现方案",
+        "community": "LLM-Wiki实现方案",
+        "connected_communities": [
+          "DevOps与运维",
+          "Java后端技术栈",
+          "数据库技术"
+        ],
+        "community_count": 3
+      },
+      {
+        "id": "Nginx",
+        "label": "Nginx",
+        "community": "DevOps与运维",
+        "connected_communities": [
+          "Java后端技术栈",
+          "数据库技术"
+        ],
+        "community_count": 2
+      },
+      {
+        "id": "SkyWalking",
+        "label": "SkyWalking",
+        "community": "DevOps与运维",
+        "connected_communities": [
+          "Java后端技术栈",
+          "数据库技术"
+        ],
+        "community_count": 2
+      },
+      {
+        "id": "数据库技术",
+        "label": "数据库技术",
+        "community": "数据库技术",
+        "connected_communities": [
+          "DevOps与运维",
+          "Java后端技术栈",
+          "LLM-Wiki实现方案"
+        ],
+        "community_count": 3
+      },
+      {
+        "id": "知识管理方法论",
+        "label": "知识管理方法论",
+        "community": "LLM-Wiki实现方案",
+        "connected_communities": [
+          "DevOps与运维",
+          "Java后端技术栈",
+          "数据库技术"
+        ],
+        "community_count": 3
+      }
+    ],
+    "sparse_communities": [],
+    "meta": {
+      "degraded": false,
+      "node_count": 20,
+      "edge_count": 35,
+      "max_insight_nodes": 250,
+      "max_insight_edges": 1000
+    }
+  },
+  "learning": {
+    "version": 1,
+    "entry": {
+      "recommended_start_node_id": "LLM-Wiki实现方案",
+      "recommended_start_reason": "community_hub",
+      "default_mode": "global"
+    },
+    "views": {
+      "path": {
+        "enabled": true,
+        "start_node_id": "LLM-Wiki实现方案",
+        "node_ids": [
+          "LLM-Wiki实现方案",
+          "AI与编程工具",
+          "Andrej-Karpathy",
+          "医疗信息化项目",
+          "算法与数据结构"
+        ],
+        "degraded": false
+      },
+      "community": {
+        "enabled": true,
+        "community_id": "LLM-Wiki实现方案",
+        "label": "LLM Wiki 实现方案",
+        "node_ids": [
+          "AI与编程工具",
+          "Andrej-Karpathy",
+          "LLM-Wiki实现方案",
+          "karpathy-llm-wiki-tweet",
+          "医疗信息化项目",
+          "知识管理方法论",
+          "算法与数据结构"
+        ],
+        "is_weak": false,
+        "degraded": false
+      },
+      "global": {
+        "enabled": true,
+        "node_ids": [
+          "Java后端技术栈",
+          "数据库技术",
+          "LLM-Wiki实现方案",
+          "知识管理方法论",
+          "DevOps与运维",
+          "Andrej-Karpathy",
+          "Arthas",
+          "Git",
+          "Netty",
+          "Nginx",
+          "SkyWalking",
+          "AI与编程工具",
+          "Cursor",
+          "PostgreSQL",
+          "wyndo-llm-wiki-obsidian",
+          "医疗信息化项目",
+          "算法与数据结构",
+          "karpathy-llm-wiki-tweet",
+          "Wyndo",
+          "Steph-Ango"
+        ],
+        "degraded": false
+      }
+    },
+    "communities": [
+      {
+        "id": "LLM-Wiki实现方案",
+        "label": "LLM Wiki 实现方案",
+        "node_count": 7,
+        "source_count": 1,
+        "internal_edge_weight": 3.367,
+        "is_primary": true,
+        "is_weak": false,
+        "recommended_start_node_id": "LLM-Wiki实现方案"
+      },
+      {
+        "id": "DevOps与运维",
+        "label": "DevOps与运维",
+        "node_count": 4,
+        "source_count": 0,
+        "internal_edge_weight": 1.5,
+        "is_primary": false,
+        "is_weak": false,
+        "recommended_start_node_id": "DevOps与运维"
+      },
+      {
+        "id": "Java后端技术栈",
+        "label": "Java后端技术栈",
+        "node_count": 3,
+        "source_count": 0,
+        "internal_edge_weight": 2,
+        "is_primary": false,
+        "is_weak": false,
+        "recommended_start_node_id": "Java后端技术栈"
+      },
+      {
+        "id": "数据库技术",
+        "label": "数据库技术",
+        "node_count": 3,
+        "source_count": 0,
+        "internal_edge_weight": 1,
+        "is_primary": false,
+        "is_weak": false,
+        "recommended_start_node_id": "数据库技术"
+      },
+      {
+        "id": "wyndo-llm-wiki-obsidian",
+        "label": "Wyndo: 用 Karpathy 的 LLM Wiki 构建 AI 第二大脑",
+        "node_count": 2,
+        "source_count": 1,
+        "internal_edge_weight": 0.3,
+        "is_primary": false,
+        "is_weak": true,
+        "recommended_start_node_id": "wyndo-llm-wiki-obsidian"
+      }
+    ],
+    "degraded": {
+      "path_to_community": false,
+      "community_to_global": false
+    }
+  }
+}
