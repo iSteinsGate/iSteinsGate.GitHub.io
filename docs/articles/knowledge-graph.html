@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识图谱 - iSteinsGate 技术博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* 左侧面板 */
+        .sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .sidebar h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #64b5f6;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .category-filter {
+            margin-bottom: 20px;
+        }
+        
+        .category-btn {
+            display: inline-block;
+            padding: 5px 12px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #fff;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: #64b5f6;
+            border-color: #64b5f6;
+        }
+        
+        .node-list {
+            list-style: none;
+        }
+        
+        .node-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .node-item:hover {
+            background: rgba(100, 181, 246, 0.2);
+        }
+        
+        .node-item.selected {
+            background: rgba(100, 181, 246, 0.3);
+            border-left: 3px solid #64b5f6;
+        }
+        
+        .node-item .title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .node-item .category {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 3px;
+        }
+        
+        /* 中间画布 */
+        .canvas-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        canvas {
+            display: block;
+        }
+        
+        /* 右侧详情 */
+        .detail-panel {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            padding: 20px;
+            display: none;
+        }
+        
+        .detail-panel.active {
+            display: block;
+        }
+        
+        .detail-header {
+            margin-bottom: 20px;
+        }
+        
+        .detail-header h3 {
+            font-size: 20px;
+            color: #64b5f6;
+            margin-bottom: 10px;
+        }
+        
+        .detail-meta {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .detail-section {
+            margin-top: 20px;
+        }
+        
+        .detail-section h4 {
+            font-size: 14px;
+            color: #81c784;
+            margin-bottom: 10px;
+        }
+        
+        .keyword-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            margin: 3px;
+            background: rgba(129, 199, 132, 0.2);
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .related-list {
+            list-style: none;
+        }
+        
+        .related-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .related-item:hover {
+            background: rgba(100, 181, 246, 0.2);
+        }
+        
+        /* 图例 */
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .legend-title {
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        /* 统计信息 */
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        
+        .stats-value {
+            color: #64b5f6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>📊 知识图谱</h2>
+            <input type="text" class="search-box" id="searchInput" placeholder="搜索文章...">
+            
+            <div class="category-filter" id="categoryFilter">
+                <button class="category-btn active" data-category="all">全部</button>
+            </div>
+            
+            <ul class="node-list" id="nodeList"></ul>
+            
+            <div class="stats">
+                <h4 style="margin-bottom: 10px; color: #64b5f6;">📈 统计</h4>
+                <div class="stats-item">
+                    <span>文章数量</span>
+                    <span class="stats-value" id="totalNodes">0</span>
+                </div>
+                <div class="stats-item">
+                    <span>关联关系</span>
+                    <span class="stats-value" id="totalEdges">0</span>
+                </div>
+                <div class="stats-item">
+                    <span>分类数量</span>
+                    <span class="stats-value" id="totalCategories">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="canvas-container">
+            <canvas id="graphCanvas"></canvas>
+            
+            <div class="legend">
+                <div class="legend-title">分类图例</div>
+                <div id="legendItems"></div>
+            </div>
+        </div>
+        
+        <div class="detail-panel" id="detailPanel">
+            <div class="detail-header">
+                <h3 id="detailTitle">选择一个节点</h3>
+                <div class="detail-meta" id="detailMeta"></div>
+            </div>
+            
+            <div class="detail-section">
+                <h4>🏷️ 关键词</h4>
+                <div id="detailKeywords"></div>
+            </div>
+            
+            <div class="detail-section">
+                <h4>🔗 相关文章</h4>
+                <ul class="related-list" id="relatedList"></ul>
+            </div>
+            
+            <div class="detail-section">
+                <button onclick="openArticle()" style="
+                    width: 100%;
+                    padding: 12px;
+                    background: #64b5f6;
+                    border: none;
+                    border-radius: 8px;
+                    color: #fff;
+                    font-size: 14px;
+                    cursor: pointer;
+                    margin-top: 10px;
+                ">📄 查看原文</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 图谱数据
+        const graphData = {"nodes": [{"id": "复杂任务三步法", "label": "复杂任务三步法", "category": "AI", "keywords": ["AI", "Agent", "任务分解"], "path": "AI/复杂任务三步法.md"}, {"id": "Cursor Agent 最佳实践", "label": "Cursor Agent 最佳实践", "category": "AI", "keywords": ["Cursor", "Agent", "AI编程"], "path": "AI/CursorAgent最佳实践.md"}, {"id": "长下文任务自动执行工作流", "label": "长下文任务自动执行工作流", "category": "AI", "keywords": ["Agent", "工作流", "自动化"], "path": "AI/关于长下文任务自动执行工作流设计.md"}, {"id": "OpenCode+OmO工程化实战", "label": "OpenCode+OmO工程化实战", "category": "AI", "keywords": ["OpenCode", "OmO", "Agent", "工程化"], "path": "AI/opencode+omo工程化实战.md"}, {"id": "Agent Harness 架构解析", "label": "Agent Harness 架构解析", "category": "AI", "keywords": ["Agent", "Harness", "架构"], "path": "AI/2026年AI竞争的新战场：Agent Harness 架构解析.md"}, {"id": "EvoMap诞生", "label": "EvoMap诞生", "category": "AI", "keywords": ["EvoMap", "Agent", "进化协议"], "path": "AI/evomap/01.EvoMap诞生：从平台依赖到进化协议.md"}, {"id": "GEP协议深潜", "label": "GEP协议深潜", "category": "AI", "keywords": ["GEP", "Agent", "自进化"], "path": "AI/evomap/02.GEP 协议深潜：为 AI Agent 自进化而生的基因工程.md"}, {"id": "Agent Skill vs GEP Gene", "label": "Agent Skill vs GEP Gene", "category": "AI", "keywords": ["Agent", "Skill", "GEP", "Gene"], "path": "AI/evomap/03.Agent Skill vs GEP Gene：工具与进化的根本分野.md"}, {"id": "AI Council", "label": "AI Council", "category": "AI", "keywords": ["Agent", "自治", "开源"], "path": "AI/evomap/06.AI Council：当 Agent 自治开源.md"}, {"id": "群体智能", "label": "群体智能", "category": "AI", "keywords": ["群体智能", "Agent", "Swarm"], "path": "AI/evomap/07.群体智能：当神族遇上虫族.md"}, {"id": "Arthas使用文档", "label": "Arthas使用文档", "category": "Java", "keywords": ["Arthas", "Java", "调试", "监控"], "path": "Java/Arthas使用文档.md"}, {"id": "Java工具类汇总", "label": "Java工具类汇总", "category": "Java", "keywords": ["Java", "工具类", "Utils"], "path": "Java/工具类汇总.md"}, {"id": "Manjaro教程", "label": "Manjaro教程", "category": "Linux", "keywords": ["Manjaro", "Linux", "Arch"], "path": "Linux/Manjaro教程.md"}, {"id": "Linux查询日志", "label": "Linux查询日志", "category": "Linux", "keywords": ["Linux", "日志", "grep"], "path": "Linux/Linux查询日志.md"}, {"id": "卡片笔记分类法", "label": "卡片笔记分类法", "category": "其他", "keywords": ["卡片笔记", "知识管理", "Zettelkasten"], "path": "Inbox/巧用分类法解决使用卡片笔记时遇到的困境.md"}, {"id": "自动导入标注到Obsidian", "label": "自动导入标注到Obsidian", "category": "其他", "keywords": ["Obsidian", "标注", "知识管理"], "path": "Inbox/自动导入标注到 Obsidian（不使用同步助手方案）.md"}], "edges": [{"source": "Cursor Agent 最佳实践", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "复杂任务三步法", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "OpenCode+OmO工程化实战", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "EvoMap诞生", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "GEP协议深潜", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "复杂任务三步法", "keywords": ["Agent"], "weight": 1}, {"source": "复杂任务三步法", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "Cursor Agent 最佳实践", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "Cursor Agent 最佳实践", "target": "OpenCode+OmO工程化实战", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "Cursor Agent 最佳实践", "keywords": ["Agent"], "weight": 1}, {"source": "Cursor Agent 最佳实践", "target": "EvoMap诞生", "keywords": ["Agent"], "weight": 1}, {"source": "Cursor Agent 最佳实践", "target": "GEP协议深潜", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "Cursor Agent 最佳实践", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "Cursor Agent 最佳实践", "keywords": ["Agent"], "weight": 1}, {"source": "Cursor Agent 最佳实践", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "OpenCode+OmO工程化实战", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "EvoMap诞生", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "GEP协议深潜", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "群体智能", "target": "长下文任务自动执行工作流", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "OpenCode+OmO工程化实战", "keywords": ["Agent"], "weight": 1}, {"source": "EvoMap诞生", "target": "OpenCode+OmO工程化实战", "keywords": ["Agent"], "weight": 1}, {"source": "GEP协议深潜", "target": "OpenCode+OmO工程化实战", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "OpenCode+OmO工程化实战", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "OpenCode+OmO工程化实战", "keywords": ["Agent"], "weight": 1}, {"source": "OpenCode+OmO工程化实战", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "EvoMap诞生", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "GEP协议深潜", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "Agent Skill vs GEP Gene", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "Agent Harness 架构解析", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Harness 架构解析", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "EvoMap诞生", "target": "GEP协议深潜", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "EvoMap诞生", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "EvoMap诞生", "keywords": ["Agent"], "weight": 1}, {"source": "EvoMap诞生", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "GEP协议深潜", "keywords": ["Agent", "GEP"], "weight": 2}, {"source": "AI Council", "target": "GEP协议深潜", "keywords": ["Agent"], "weight": 1}, {"source": "GEP协议深潜", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "Agent Skill vs GEP Gene", "keywords": ["Agent"], "weight": 1}, {"source": "Agent Skill vs GEP Gene", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "AI Council", "target": "群体智能", "keywords": ["Agent"], "weight": 1}, {"source": "Arthas使用文档", "target": "Java工具类汇总", "keywords": ["Java"], "weight": 1}, {"source": "Linux查询日志", "target": "Manjaro教程", "keywords": ["Linux"], "weight": 1}, {"source": "卡片笔记分类法", "target": "自动导入标注到Obsidian", "keywords": ["知识管理"], "weight": 1}], "insights": {"total_articles": 16, "total_edges": 48, "categories": {"AI": 10, "Java": 2, "Linux": 2, "其他": 2}}};
+        
+        // 颜色配置
+        const categoryColors = {
+            'AI': '#64b5f6',
+            'Java': '#81c784',
+            'Linux': '#ffb74d',
+            '其他': '#ce93d8'
+        };
+        
+        // 画布相关
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let nodes = [];
+        let edges = [];
+        let selectedNode = null;
+        let hoveredNode = null;
+        let draggedNode = null;
+        let offsetX, offsetY;
+        let activeCategory = 'all';
+        
+        // 初始化
+        function init() {
+            resizeCanvas();
+            initNodes();
+            initEdges();
+            initUI();
+            draw();
+            
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                draw();
+            });
+            
+            canvas.addEventListener('mousedown', onMouseDown);
+            canvas.addEventListener('mousemove', onMouseMove);
+            canvas.addEventListener('mouseup', onMouseUp);
+            canvas.addEventListener('click', onClick);
+        }
+        
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            width = container.clientWidth;
+            height = container.clientHeight;
+            canvas.width = width * window.devicePixelRatio;
+            canvas.height = height * window.devicePixelRatio;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        }
+        
+        function initNodes() {
+            const padding = 100;
+            nodes = graphData.nodes.map((node, i) => ({
+                ...node,
+                x: padding + Math.random() * (width - 2 * padding),
+                y: padding + Math.random() * (height - 2 * padding),
+                radius: 20 + (getNodeEdges(node.id).length * 3),
+                color: categoryColors[node.category] || '#999'
+            }));
+        }
+        
+        function initEdges() {
+            edges = graphData.edges.map(edge => ({
+                ...edge,
+                sourceNode: nodes.find(n => n.id === edge.source),
+                targetNode: nodes.find(n => n.id === edge.target)
+            }));
+        }
+        
+        function initUI() {
+            // 更新统计
+            document.getElementById('totalNodes').textContent = graphData.nodes.length;
+            document.getElementById('totalEdges').textContent = graphData.edges.length;
+            document.getElementById('totalCategories').textContent = Object.keys(categoryColors).length;
+            
+            // 生成分类按钮
+            const filterContainer = document.getElementById('categoryFilter');
+            Object.keys(categoryColors).forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.dataset.category = cat;
+                btn.textContent = cat;
+                btn.onclick = () => filterCategory(cat);
+                filterContainer.appendChild(btn);
+            });
+            
+            // 生成图例
+            const legendContainer = document.getElementById('legendItems');
+            Object.entries(categoryColors).forEach(([cat, color]) => {
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `<div class="legend-dot" style="background: ${color}"></div>${cat}`;
+                legendContainer.appendChild(item);
+            });
+            
+            // 生成节点列表
+            updateNodeList();
+            
+            // 搜索功能
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                updateNodeList(e.target.value);
+            });
+        }
+        
+        function updateNodeList(search = '') {
+            const list = document.getElementById('nodeList');
+            list.innerHTML = '';
+            
+            const filteredNodes = nodes.filter(node => {
+                const matchCategory = activeCategory === 'all' || node.category === activeCategory;
+                const matchSearch = search === '' || 
+                    node.title.toLowerCase().includes(search.toLowerCase()) ||
+                    node.keywords.some(k => k.toLowerCase().includes(search.toLowerCase()));
+                return matchCategory && matchSearch;
+            });
+            
+            filteredNodes.forEach(node => {
+                const li = document.createElement('li');
+                li.className = `node-item ${selectedNode?.id === node.id ? 'selected' : ''}`;
+                li.innerHTML = `
+                    <div class="title">${node.title}</div>
+                    <div class="category">${node.category} · ${node.keywords.slice(0, 3).join(', ')}</div>
+                `;
+                li.onclick = () => selectNode(node);
+                list.appendChild(li);
+            });
+        }
+        
+        function getNodeEdges(nodeId) {
+            return edges.filter(e => e.source === nodeId || e.target === nodeId);
+        }
+        
+        function getRelatedNodes(nodeId) {
+            const related = new Set();
+            edges.forEach(edge => {
+                if (edge.source === nodeId) related.add(edge.target);
+                if (edge.target === nodeId) related.add(edge.source);
+            });
+            return Array.from(related);
+        }
+        
+        function filterCategory(category) {
+            activeCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+            updateNodeList(document.getElementById('searchInput').value);
+            draw();
+        }
+        
+        function selectNode(node) {
+            selectedNode = node;
+            updateNodeList(document.getElementById('searchInput').value);
+            updateDetailPanel(node);
+            draw();
+        }
+        
+        function updateDetailPanel(node) {
+            const panel = document.getElementById('detailPanel');
+            panel.classList.add('active');
+            
+            document.getElementById('detailTitle').textContent = node.title;
+            document.getElementById('detailMeta').textContent = `${node.category} · ${node.path}`;
+            
+            document.getElementById('detailKeywords').innerHTML = node.keywords
+                .map(k => `<span class="keyword-tag">${k}</span>`)
+                .join('');
+            
+            const related = getRelatedNodes(node.id);
+            document.getElementById('relatedList').innerHTML = related
+                .map(id => {
+                    const n = nodes.find(x => x.id === id);
+                    return `<li class="related-item" onclick="selectNode(nodes.find(x => x.id === '${id}'))">${n.title}</li>`;
+                })
+                .join('');
+        }
+        
+        function openArticle() {
+            if (selectedNode) {
+                window.open('../' + selectedNode.path, '_blank');
+            }
+        }
+        
+        // 绘制
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // 绘制边
+            edges.forEach(edge => {
+                if (!edge.sourceNode || !edge.targetNode) return;
+                
+                const isVisible = activeCategory === 'all' || 
+                    edge.sourceNode.category === activeCategory || 
+                    edge.targetNode.category === activeCategory;
+                
+                if (!isVisible) return;
+                
+                const isHighlighted = selectedNode && 
+                    (edge.source === selectedNode.id || edge.target === selectedNode.id);
+                
+                ctx.beginPath();
+                ctx.moveTo(edge.sourceNode.x, edge.sourceNode.y);
+                ctx.lineTo(edge.targetNode.x, edge.targetNode.y);
+                ctx.strokeStyle = isHighlighted ? 
+                    'rgba(100, 181, 246, 0.8)' : 
+                    'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = isHighlighted ? 2 : 1;
+                ctx.stroke();
+            });
+            
+            // 绘制节点
+            nodes.forEach(node => {
+                const isVisible = activeCategory === 'all' || node.category === activeCategory;
+                if (!isVisible) return;
+                
+                const isSelected = selectedNode?.id === node.id;
+                const isHovered = hoveredNode?.id === node.id;
+                const isRelated = selectedNode && getRelatedNodes(selectedNode.id).includes(node.id);
+                
+                // 节点光晕
+                if (isSelected || isHovered) {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius + 10, 0, Math.PI * 2);
+                    ctx.fillStyle = `${node.color}33`;
+                    ctx.fill();
+                }
+                
+                // 节点主体
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fillStyle = isSelected ? node.color : 
+                    isRelated ? `${node.color}cc` : 
+                    `${node.color}88`;
+                ctx.fill();
+                
+                // 节点边框
+                ctx.strokeStyle = isSelected ? '#fff' : node.color;
+                ctx.lineWidth = isSelected ? 3 : 1;
+                ctx.stroke();
+                
+                // 节点标签
+                ctx.fillStyle = '#fff';
+                ctx.font = `${isSelected ? 'bold ' : ''}12px sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // 截断过长的标题
+                let label = node.title;
+                if (label.length > 8) {
+                    label = label.substring(0, 8) + '...';
+                }
+                ctx.fillText(label, node.x, node.y);
+            });
+        }
+        
+        // 交互
+        function getNodeAt(x, y) {
+            return nodes.find(node => {
+                const isVisible = activeCategory === 'all' || node.category === activeCategory;
+                if (!isVisible) return false;
+                
+                const dx = x - node.x;
+                const dy = y - node.y;
+                return Math.sqrt(dx * dx + dy * dy) < node.radius;
+            });
+        }
+        
+        function onMouseDown(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            draggedNode = getNodeAt(x, y);
+            if (draggedNode) {
+                offsetX = x - draggedNode.x;
+                offsetY = y - draggedNode.y;
+            }
+        }
+        
+        function onMouseMove(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            if (draggedNode) {
+                draggedNode.x = x - offsetX;
+                draggedNode.y = y - offsetY;
+                draw();
+            } else {
+                const node = getNodeAt(x, y);
+                canvas.style.cursor = node ? 'pointer' : 'default';
+                hoveredNode = node;
+                draw();
+            }
+        }
+        
+        function onMouseUp() {
+            draggedNode = null;
+        }
+        
+        function onClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const node = getNodeAt(x, y);
+            if (node) {
+                selectNode(node);
+            }
+        }
+        
+        // 启动
+        init();
+    </script>
+</body>
+</html>

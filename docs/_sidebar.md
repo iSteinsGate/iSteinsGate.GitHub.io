@@ -1,5 +1,6 @@
 - **知识库**
-  - [LLM Wiki 知识图谱](wiki/knowledge-graph.html)
+  - [📊 技术文章知识图谱](articles/knowledge-graph.html)
+  - [🗺️ LLM Wiki 知识图谱](wiki/knowledge-graph.html)
   - LLM Wiki
     - [概览](wiki/overview.md)
     - 概念
