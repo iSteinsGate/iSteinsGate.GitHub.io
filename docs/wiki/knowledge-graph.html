@@ -105,7 +105,7 @@
       z-index: 1;
       height: 100vh;
       display: grid;
-      grid-template-columns: var(--sidebar-width, 260px) 1fr var(--drawer-width, 370px);
+      grid-template-columns: var(--sidebar-width, 260px) var(--canvas-width, 1fr) var(--drawer-width, 370px);
       grid-template-rows: auto 1fr;
       gap: 16px;
       padding: 14px 16px 16px 24px;
@@ -113,7 +113,7 @@
     }
 
     .app[data-reading="1"] {
-      grid-template-columns: var(--sidebar-width, 250px) 1fr var(--drawer-width, 430px);
+      grid-template-columns: var(--sidebar-width, 250px) var(--canvas-width, 1fr) var(--drawer-width, 430px);
     }
 
     /* 收起状态 */
@@ -123,6 +123,52 @@
 
     .app[data-drawer-collapsed="1"] {
       --drawer-width: 48px;
+    }
+
+    /* 画布缩小状态 */
+    .app[data-canvas-collapsed="1"] {
+      --canvas-width: 200px;
+    }
+
+    /* 全屏模式 */
+    .app[data-fullscreen="drawer"] {
+      --sidebar-width: 0px;
+      --canvas-width: 0px;
+      --drawer-width: 1fr;
+      padding: 0;
+      gap: 0;
+    }
+
+    .app[data-fullscreen="canvas"] {
+      --sidebar-width: 0px;
+      --drawer-width: 0px;
+      --canvas-width: 1fr;
+      padding: 0;
+      gap: 0;
+    }
+
+    .app[data-fullscreen="sidebar"] {
+      --canvas-width: 0px;
+      --drawer-width: 0px;
+      --sidebar-width: 1fr;
+      padding: 0;
+      gap: 0;
+    }
+
+    /* 全屏模式下隐藏其他面板 */
+    .app[data-fullscreen="drawer"] .sidebar,
+    .app[data-fullscreen="drawer"] .canvas-card {
+      display: none;
+    }
+
+    .app[data-fullscreen="canvas"] .sidebar,
+    .app[data-fullscreen="canvas"] .drawer {
+      display: none;
+    }
+
+    .app[data-fullscreen="sidebar"] .canvas-card,
+    .app[data-fullscreen="sidebar"] .drawer {
+      display: none;
     }
 
     /* 拖拽手柄 */
@@ -2039,6 +2085,9 @@
         <div class="canvas-actions">
           <button class="ghost-button" type="button" id="fit-view">回到全图</button>
           <button class="ghost-button" type="button" id="toggle-dim">弱化未选中</button>
+          <button class="ghost-button" type="button" id="toggle-canvas" title="缩小/展开画布">📐</button>
+          <button class="ghost-button" type="button" id="fullscreen-canvas" title="画布全屏">⛶</button>
+          <button class="ghost-button" type="button" id="fullscreen-drawer" title="详情全屏">⬜</button>
           <div class="state-dock" aria-label="数据状态">
             <button class="state-button" type="button" data-mode="normal" aria-pressed="true">正常</button>
             <button class="state-button" type="button" data-mode="loading" aria-pressed="false">加载</button>
@@ -2192,6 +2241,9 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
   const drawerResizeHandle = document.getElementById('drawer-resize-handle');
   const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   const drawerCollapseBtn = document.getElementById('drawer-collapse-btn');
+  const toggleCanvasBtn = document.getElementById('toggle-canvas');
+  const fullscreenCanvasBtn = document.getElementById('fullscreen-canvas');
+  const fullscreenDrawerBtn = document.getElementById('fullscreen-drawer');
   
   // 状态
   let isResizing = false;
@@ -2204,6 +2256,8 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
   const savedDrawerWidth = localStorage.getItem('drawer-width');
   const sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === '1';
   const drawerCollapsed = localStorage.getItem('drawer-collapsed') === '1';
+  const canvasCollapsed = localStorage.getItem('canvas-collapsed') === '1';
+  const fullscreenMode = localStorage.getItem('fullscreen-mode') || '';
   
   // 初始化宽度
   if (savedSidebarWidth) {
@@ -2221,6 +2275,12 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
   if (drawerCollapsed) {
     app.setAttribute('data-drawer-collapsed', '1');
     drawerCollapseBtn.textContent = '◀';
+  }
+  if (canvasCollapsed) {
+    app.setAttribute('data-canvas-collapsed', '1');
+  }
+  if (fullscreenMode) {
+    app.setAttribute('data-fullscreen', fullscreenMode);
   }
   
   // 收起/展开功能
@@ -2250,12 +2310,52 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
     }
   }
   
+  function toggleCanvas() {
+    const isCollapsed = app.getAttribute('data-canvas-collapsed') === '1';
+    if (isCollapsed) {
+      app.removeAttribute('data-canvas-collapsed');
+      localStorage.removeItem('canvas-collapsed');
+    } else {
+      app.setAttribute('data-canvas-collapsed', '1');
+      localStorage.setItem('canvas-collapsed', '1');
+    }
+  }
+  
+  function setFullscreenMode(mode) {
+    const currentMode = app.getAttribute('data-fullscreen');
+    if (currentMode === mode) {
+      // 退出全屏
+      app.removeAttribute('data-fullscreen');
+      localStorage.removeItem('fullscreen-mode');
+    } else {
+      // 进入全屏
+      app.setAttribute('data-fullscreen', mode);
+      localStorage.setItem('fullscreen-mode', mode);
+    }
+  }
+  
   if (sidebarCollapseBtn) {
     sidebarCollapseBtn.addEventListener('click', toggleSidebar);
   }
   
   if (drawerCollapseBtn) {
     drawerCollapseBtn.addEventListener('click', toggleDrawer);
+  }
+  
+  if (toggleCanvasBtn) {
+    toggleCanvasBtn.addEventListener('click', toggleCanvas);
+  }
+  
+  if (fullscreenCanvasBtn) {
+    fullscreenCanvasBtn.addEventListener('click', function() {
+      setFullscreenMode('canvas');
+    });
+  }
+  
+  if (fullscreenDrawerBtn) {
+    fullscreenDrawerBtn.addEventListener('click', function() {
+      setFullscreenMode('drawer');
+    });
   }
   
   // 拖拽调整宽度功能
@@ -2348,6 +2448,19 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
     if (e.ctrlKey && e.key === ']') {
       e.preventDefault();
       toggleDrawer();
+    }
+    // Ctrl + \ 画布缩小/展开
+    if (e.ctrlKey && e.key === '\\') {
+      e.preventDefault();
+      toggleCanvas();
+    }
+    // Escape 退出全屏
+    if (e.key === 'Escape') {
+      const fullscreenMode = app.getAttribute('data-fullscreen');
+      if (fullscreenMode) {
+        app.removeAttribute('data-fullscreen');
+        localStorage.removeItem('fullscreen-mode');
+      }
     }
   });
 })();
