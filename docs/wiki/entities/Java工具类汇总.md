@@ -1,3 +1,9 @@
+---
+type: entity
+category: Java
+created: 2026-06-06
+---
+
 
 
 ## Xml工具类
@@ -12,3 +18,9 @@
 ## 相关文章
 
 - [[Arthas使用文档]]
+
+---
+
+## 相关页面
+
+- [[Arthas-使用文档]]

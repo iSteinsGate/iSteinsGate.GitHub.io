@@ -1,3 +1,9 @@
+---
+type: entity
+category: Linux
+created: 2026-06-06
+---
+
 
 
 
@@ -21,5 +27,11 @@ xargs -I '{}' grep '{}' your_log_file.log：使用 xargs 命令将前一步提�
 ---
 
 ## 相关文章
+
+- [[Manjaro教程]]
+
+---
+
+## 相关页面
 
 - [[Manjaro教程]]

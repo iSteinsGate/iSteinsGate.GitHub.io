@@ -1,3 +1,9 @@
+---
+type: entity
+category: 知识管理
+created: 2026-06-06
+---
+
 导入到 Obsdian 插件升级到 1.2.0，增加了自动导入标注到 Obsidian 的功能，此文为一站式配置教程，查看此插件的文档说明，请 [前往这里](https://link.zhihu.com/?target=https%3A//github.com/Kenshin/simpread/discussions/2902)。
 
 ## 视频
@@ -143,5 +149,11 @@ o b a c
 ---
 
 ## 相关文章
+
+- [[卡片笔记分类法]]
+
+---
+
+## 相关页面
 
 - [[卡片笔记分类法]]

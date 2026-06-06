@@ -1,3 +1,9 @@
+---
+type: entity
+category: Java
+created: 2026-06-06
+---
+
 # Arthas
 [官方文档](https://arthas.aliyun.com/doc/)
 
@@ -320,5 +326,11 @@ Arthas 支持使用管道对上述命令的结果进行进一步的处理，如s
 ---
 
 ## 相关文章
+
+- [[Java工具类汇总]]
+
+---
+
+## 相关页面
 
 - [[Java工具类汇总]]

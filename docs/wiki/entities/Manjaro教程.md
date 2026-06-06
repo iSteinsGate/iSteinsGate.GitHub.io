@@ -1,3 +1,9 @@
+---
+type: entity
+category: Linux
+created: 2026-06-06
+---
+
 # manjaro 
 
 ## pacman 
@@ -34,5 +40,11 @@ yay -G 包名     # 可以只下载aur包而不构建
 ---
 
 ## 相关文章
+
+- [[Linux查询日志]]
+
+---
+
+## 相关页面
 
 - [[Linux查询日志]]

@@ -256,6 +256,48 @@
       "type": "source",
       "community": null,
       "content": "# Wyndo: 用 Karpathy 的 LLM Wiki 构建 AI 第二大脑\n\n## 基本信息\n- **作者**: [Wyndo](Wyndo.md)\n- **日期**: 2026年4月16日\n- **来源**: The AI Maker (Substack)\n- **类型**: 付费文章（部分免费）\n- **字数**: 6802词\n\n## 文章定位\n这是将 [Andrej-Karpathy](Andrej-Karpathy.md) 的 [LLM-Wiki](LLM-Wiki.md) 概念落地为完整实现方案的蓝图文章。\n\n## 核心内容\n\n### 三层架构\n```\nsources/   → 第1层：输入（不可变原始材料）\nwiki/      → 第2层：LLM生成的知识页面\nCLAUDE.md  → 第3层：管控wiki运作的schema\n```\n\n### 三大核心操作\n1. `/ingest-url` — 输入URL，Claude提取文章并编译进wiki\n2. `/process-inbox` — 自动分类快速笔记和想法\n3. `/lint-wiki` — 健康检查：断链、孤立页、矛盾内容\n\n### 技术栈\n- [Obsidian](Obsidian.md) — 界面\n- [Claude-Code](Claude-Code.md) — 代理\n- [Obsidian-Skills](Obsidian-Skills.md) — LLM操作技能\n- CLI — 终端运行\n\n### 关键设计决策\n1. `raw/` 文件夹**不可变** — AI不修改源文件\n2. Wiki 合并同主题文章；新概念创建新页面\n3. 通过 \"See Also\" 部分交叉引用\n4. 事实冲突标注来源归属\n5. `index.md` 和 `log.md` 是必须维护的文件\n\n## 文章结构\n1. **背景** — 笔记系统的痛点\n2. **灵感** — Karpathy 的 LLM Wiki\n3. **技术栈** — Obsidian + Claude Code + Skills\n4. **三层架构详解** — sources / wiki / schema\n5. **三大操作详解** — ingest / process-inbox / lint\n6. **实际示例** — Paul Graham 文章处理\n7. **入门套件** — 可下载的完整系统\n\n## 关键洞察\n1. 笔记系统的致命弱点是**维护成本**\n2. LLM Wiki 翻转了范式：AI维护知识库\n3. 知识具有**复利效应**\n4. Obsidian Skills 是关键：教LLM用原生语言操作\n5. 三个命令就能运行\n\n## 相关页面\n- [LLM-Wiki](LLM-Wiki.md) — 核心框架\n- [AI驱动的第二大脑](AI驱动的第二大脑.md) — 应用场景\n- [Wyndo](Wyndo.md) — 作者\n- [Obsidian](Obsidian.md) — 推荐界面\n- [Claude-Code](Claude-Code.md) — 推荐代理\n\n## 参考资料\n- [原文](https://aimaker.substack.com/p/llm-wiki-obsidian-knowledge-base-andrej-karphaty)\n- [中文翻译](../raw/articles/karpathy-llm-wiki-obsidian-中文翻译.md)"
+    },
+    {
+      "id": "Arthas-使用文档",
+      "label": "Arthas使用文档",
+      "type": "entity",
+      "category": "Java",
+      "path": "entities/Arthas-使用文档.md"
+    },
+    {
+      "id": "Java工具类汇总",
+      "label": "Java工具类汇总",
+      "type": "entity",
+      "category": "Java",
+      "path": "entities/Java工具类汇总.md"
+    },
+    {
+      "id": "Manjaro教程",
+      "label": "Manjaro教程",
+      "type": "entity",
+      "category": "Linux",
+      "path": "entities/Manjaro教程.md"
+    },
+    {
+      "id": "Linux查询日志",
+      "label": "Linux查询日志",
+      "type": "entity",
+      "category": "Linux",
+      "path": "entities/Linux查询日志.md"
+    },
+    {
+      "id": "卡片笔记分类法",
+      "label": "卡片笔记分类法",
+      "type": "entity",
+      "category": "知识管理",
+      "path": "entities/卡片笔记分类法.md"
+    },
+    {
+      "id": "Obsidian自动导入标注",
+      "label": "Obsidian自动导入标注",
+      "type": "entity",
+      "category": "知识管理",
+      "path": "entities/Obsidian自动导入标注.md"
     }
   ],
   "edges": [
@@ -648,6 +690,66 @@
         "source_overlap": null,
         "type_affinity": 1
       }
+    },
+    {
+      "source": "Arthas-使用文档",
+      "target": "Java工具类汇总",
+      "type": "related"
+    },
+    {
+      "source": "Java工具类汇总",
+      "target": "Arthas-使用文档",
+      "type": "related"
+    },
+    {
+      "source": "Manjaro教程",
+      "target": "Linux查询日志",
+      "type": "related"
+    },
+    {
+      "source": "Linux查询日志",
+      "target": "Manjaro教程",
+      "type": "related"
+    },
+    {
+      "source": "卡片笔记分类法",
+      "target": "Obsidian自动导入标注",
+      "type": "related"
+    },
+    {
+      "source": "Obsidian自动导入标注",
+      "target": "卡片笔记分类法",
+      "type": "related"
+    },
+    {
+      "source": "Arthas-使用文档",
+      "target": "Arthas",
+      "type": "related"
+    },
+    {
+      "source": "Arthas",
+      "target": "Arthas-使用文档",
+      "type": "related"
+    },
+    {
+      "source": "卡片笔记分类法",
+      "target": "知识管理方法论",
+      "type": "related"
+    },
+    {
+      "source": "知识管理方法论",
+      "target": "卡片笔记分类法",
+      "type": "related"
+    },
+    {
+      "source": "Obsidian自动导入标注",
+      "target": "知识管理方法论",
+      "type": "related"
+    },
+    {
+      "source": "知识管理方法论",
+      "target": "Obsidian自动导入标注",
+      "type": "related"
     }
   ],
   "insights": {
@@ -793,7 +895,9 @@
       "edge_count": 30,
       "max_insight_nodes": 250,
       "max_insight_edges": 1000
-    }
+    },
+    "node_count": 37,
+    "edge_count": 42
   },
   "learning": {
     "version": 1,
