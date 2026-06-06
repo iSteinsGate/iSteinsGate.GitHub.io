@@ -954,7 +954,16 @@
       sourceAction.addEventListener("click", () => {
         const previewEntry = getPreviewStartEntry();
         const node = getSelectedNode() || (previewEntry && previewEntry.node);
-        if (node && node.source_path) window.location.href = node.source_path;
+        if (node) {
+          // 优先使用 source_path，否则使用 path 构建 GitHub Pages URL
+          if (node.source_path) {
+            window.location.href = node.source_path;
+          } else if (node.path) {
+            // 将 wiki/entity/xxx.md 转换为 GitHub Pages URL
+            const wikiPath = node.path.replace(/\.md$/, '');
+            window.open(`https://isteinsgate.github.io/wiki/${wikiPath}`, '_blank');
+          }
+        }
       });
     }
   }
