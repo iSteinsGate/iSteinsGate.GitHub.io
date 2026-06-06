@@ -422,17 +422,19 @@
             const filteredNodes = nodes.filter(node => {
                 const matchCategory = activeCategory === 'all' || node.category === activeCategory;
                 const matchSearch = search === '' || 
-                    node.title.toLowerCase().includes(search.toLowerCase()) ||
-                    node.keywords.some(k => k.toLowerCase().includes(search.toLowerCase()));
+                    (node.label || node.id || '').toLowerCase().includes(search.toLowerCase()) ||
+                    (node.keywords || []).some(k => k.toLowerCase().includes(search.toLowerCase()));
                 return matchCategory && matchSearch;
             });
             
             filteredNodes.forEach(node => {
                 const li = document.createElement('li');
                 li.className = `node-item ${selectedNode?.id === node.id ? 'selected' : ''}`;
+                const title = node.label || node.id || '未命名';
+                const keywords = node.keywords || [];
                 li.innerHTML = `
-                    <div class="title">${node.title}</div>
-                    <div class="category">${node.category} · ${node.keywords.slice(0, 3).join(', ')}</div>
+                    <div class="title">${title}</div>
+                    <div class="category">${node.category || '未分类'} · ${keywords.slice(0, 3).join(', ')}</div>
                 `;
                 li.onclick = () => selectNode(node);
                 list.appendChild(li);
@@ -472,10 +474,14 @@
             const panel = document.getElementById('detailPanel');
             panel.classList.add('active');
             
-            document.getElementById('detailTitle').textContent = node.title;
-            document.getElementById('detailMeta').textContent = `${node.category} · ${node.path}`;
+            const title = node.label || node.id || '未命名';
+            const path = node.path || '';
+            const keywords = node.keywords || [];
             
-            document.getElementById('detailKeywords').innerHTML = node.keywords
+            document.getElementById('detailTitle').textContent = title;
+            document.getElementById('detailMeta').textContent = `${node.category || '未分类'} · ${path}`;
+            
+            document.getElementById('detailKeywords').innerHTML = keywords
                 .map(k => `<span class="keyword-tag">${k}</span>`)
                 .join('');
             
@@ -483,13 +489,16 @@
             document.getElementById('relatedList').innerHTML = related
                 .map(id => {
                     const n = nodes.find(x => x.id === id);
-                    return `<li class="related-item" onclick="selectNode(nodes.find(x => x.id === '${id}'))">${n.title}</li>`;
+                    if (!n) return '';
+                    const relatedTitle = n.label || n.id || '未命名';
+                    return `<li class="related-item" onclick="selectNode(nodes.find(x => x.id === '${id}'))">${relatedTitle}</li>`;
                 })
+                .filter(html => html)
                 .join('');
         }
         
         function openArticle() {
-            if (selectedNode) {
+            if (selectedNode && selectedNode.path) {
                 window.open('../' + selectedNode.path, '_blank');
             }
         }
@@ -558,7 +567,7 @@
                 ctx.textBaseline = 'middle';
                 
                 // 截断过长的标题
-                let label = node.title;
+                let label = node.label || node.id || '?';
                 if (label.length > 8) {
                     label = label.substring(0, 8) + '...';
                 }
