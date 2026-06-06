@@ -105,14 +105,14 @@
       z-index: 1;
       height: 100vh;
       display: grid;
-      grid-template-columns: minmax(236px, 276px) minmax(520px, 1fr) minmax(300px, 370px);
+      grid-template-columns: minmax(236px, 276px) minmax(520px, 1fr) var(--drawer-width, minmax(300px, 370px));
       grid-template-rows: auto 1fr;
       gap: 16px;
       padding: 14px 16px 16px 24px;
     }
 
     .app[data-reading="1"] {
-      grid-template-columns: minmax(226px, 260px) minmax(500px, 1fr) minmax(340px, 430px);
+      grid-template-columns: minmax(226px, 260px) minmax(500px, 1fr) var(--drawer-width-reading, minmax(340px, 430px));
     }
 
     .topbar {
@@ -1091,6 +1091,36 @@
       overflow: hidden;
     }
 
+    /* 拖拽调整宽度手柄 */
+    .resize-handle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      cursor: col-resize;
+      z-index: 10;
+      background: transparent;
+      transition: background 0.2s;
+    }
+
+    .resize-handle:hover,
+    .resize-handle.active {
+      background: rgba(139, 46, 36, 0.3);
+    }
+
+    .resize-handle::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 40px;
+      background: rgba(139, 46, 36, 0.4);
+      border-radius: 1px;
+    }
+
     .drawer,
     .drawer * {
       min-width: 0;
@@ -1957,6 +1987,7 @@
     </section>
 
     <aside class="drawer" id="drawer" aria-label="批注札记详情">
+      <div class="resize-handle" id="resize-handle"></div>
       <header class="drawer-header">
         <div class="eyebrow" id="drawer-kind"><span class="spark"></span>TOPIC · SELECTED</div>
         <h2 id="drawer-title">知识编译</h2>
@@ -2020,6 +2051,62 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
 <!-- Main app -->
 <script src="graph-wash-helpers.js" defer></script>
 <script src="graph-wash.js" defer></script>
+
+<script>
+// 右侧面板宽度调整功能
+document.addEventListener('DOMContentLoaded', function() {
+  const app = document.querySelector('.app');
+  const drawer = document.getElementById('drawer');
+  const resizeHandle = document.getElementById('resize-handle');
+  
+  if (!resizeHandle || !drawer) return;
+  
+  let isResizing = false;
+  let startX = 0;
+  let startWidth = 0;
+  
+  // 从 localStorage 读取保存的宽度
+  const savedWidth = localStorage.getItem('drawer-width');
+  if (savedWidth) {
+    app.style.setProperty('--drawer-width', savedWidth + 'px');
+  }
+  
+  resizeHandle.addEventListener('mousedown', function(e) {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = drawer.offsetWidth;
+    resizeHandle.classList.add('active');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+  
+  document.addEventListener('mousemove', function(e) {
+    if (!isResizing) return;
+    
+    const diff = startX - e.clientX;
+    const newWidth = Math.max(300, Math.min(800, startWidth + diff));
+    
+    app.style.setProperty('--drawer-width', newWidth + 'px');
+    localStorage.setItem('drawer-width', newWidth);
+  });
+  
+  document.addEventListener('mouseup', function() {
+    if (isResizing) {
+      isResizing = false;
+      resizeHandle.classList.remove('active');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    }
+  });
+  
+  // 双击重置为默认宽度
+  resizeHandle.addEventListener('dblclick', function() {
+    app.style.removeProperty('--drawer-width');
+    localStorage.removeItem('drawer-width');
+  });
+});
+</script>
 
 </body>
 </html>
