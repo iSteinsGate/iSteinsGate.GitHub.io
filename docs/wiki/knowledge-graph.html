@@ -105,14 +105,14 @@
       z-index: 1;
       height: 100vh;
       display: grid;
-      grid-template-columns: minmax(236px, 276px) minmax(520px, 1fr) var(--drawer-width, minmax(300px, 370px));
+      grid-template-columns: minmax(236px, 276px) minmax(520px, 1fr) 370px;
       grid-template-rows: auto 1fr;
       gap: 16px;
       padding: 14px 16px 16px 24px;
     }
 
     .app[data-reading="1"] {
-      grid-template-columns: minmax(226px, 260px) minmax(500px, 1fr) var(--drawer-width-reading, minmax(340px, 430px));
+      grid-template-columns: minmax(226px, 260px) minmax(500px, 1fr) 430px;
     }
 
     .topbar {
@@ -2054,12 +2054,12 @@ window.__TWEAKS = /*EDITMODE-BEGIN*/{
 
 <script>
 // 右侧面板宽度调整功能
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
   const app = document.querySelector('.app');
   const drawer = document.getElementById('drawer');
   const resizeHandle = document.getElementById('resize-handle');
   
-  if (!resizeHandle || !drawer) return;
+  if (!resizeHandle || !drawer || !app) return;
   
   let isResizing = false;
   let startX = 0;
@@ -2068,7 +2068,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // 从 localStorage 读取保存的宽度
   const savedWidth = localStorage.getItem('drawer-width');
   if (savedWidth) {
-    app.style.setProperty('--drawer-width', savedWidth + 'px');
+    const width = parseInt(savedWidth);
+    app.style.gridTemplateColumns = `minmax(236px, 276px) minmax(520px, 1fr) ${width}px`;
   }
   
   resizeHandle.addEventListener('mousedown', function(e) {
@@ -2087,7 +2088,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const diff = startX - e.clientX;
     const newWidth = Math.max(300, Math.min(800, startWidth + diff));
     
-    app.style.setProperty('--drawer-width', newWidth + 'px');
+    app.style.gridTemplateColumns = `minmax(236px, 276px) minmax(520px, 1fr) ${newWidth}px`;
     localStorage.setItem('drawer-width', newWidth);
   });
   
@@ -2102,10 +2103,10 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // 双击重置为默认宽度
   resizeHandle.addEventListener('dblclick', function() {
-    app.style.removeProperty('--drawer-width');
+    app.style.gridTemplateColumns = '';
     localStorage.removeItem('drawer-width');
   });
-});
+})();
 </script>
 
 </body>
